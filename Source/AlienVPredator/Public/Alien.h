@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "LivingOrganism.h"
+#include "DamageInterface.h"
 #include "Alien.generated.h"
 
 /**
@@ -15,7 +16,7 @@ class UArrowComponent;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAlienGooEvent, bool, isGoo, float, gooSpeed);
 
 UCLASS()
-class ALIENVPREDATOR_API AAlien : public ALivingOrganism
+class ALIENVPREDATOR_API AAlien : public ALivingOrganism, public IDamageInterface
 {
 	GENERATED_BODY()
 
@@ -28,6 +29,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<UArrowComponent> ArrowComponent;
+
+	void TakeLivingDamage_Implementation() override;
 
 protected:
 

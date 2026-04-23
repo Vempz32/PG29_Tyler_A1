@@ -10,6 +10,10 @@
 /**
  * 
  */
+class AAlien;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPredatorShootEvent, AAlien*, TargetAlien);
+
 UCLASS()
 class ALIENVPREDATOR_API APredator : public ALivingOrganism , public IDamageInterface
 {
@@ -18,5 +22,16 @@ class ALIENVPREDATOR_API APredator : public ALivingOrganism , public IDamageInte
 public:
 
 	void TakeLivingDamage_Implementation() override;
+
+	UPROPERTY(BlueprintAssignable, Category = "Predator")
+	FOnPredatorShootEvent OnShoot;  
+
+	virtual void Tick(float DeltaTime) override;
+
+private:
+
+	void CheckForCloseAliens(); 
+	void ShootAt(AAlien* Target); 
+	float LastShootTime = 0.0f;  
 	
 };

@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "DamageInterface.h"
 #include "Components/ArrowComponent.h"
+#include "Engine/Engine.h"
 
 AAlien::AAlien()
 {
@@ -51,4 +52,12 @@ void AAlien::AddForceToBody()
 {
 	const FVector forceToAdd = BodyMesh->GetMass() * (GetActorForwardVector() * MovementSpeed);
 	BodyMesh->AddForce(forceToAdd, NAME_None, true);
+}
+
+void AAlien::TakeLivingDamage_Implementation()
+{
+	// Example: Log damage and optionally destroy or reduce health (add health logic if needed)
+	GEngine->AddOnScreenDebugMessage(INDEX_NONE, 5.0f, FColor::Red, TEXT("Alien took damage!"));
+	// Optional: Destroy the Alien on damage for testing
+	// Destroy();
 }
